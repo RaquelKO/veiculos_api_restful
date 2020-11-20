@@ -1,8 +1,10 @@
 package com.example.veiculos_api_restful.model;
 
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonGetter;
 
 public class Reserva {
 
@@ -54,6 +56,20 @@ public class Reserva {
 
     public void setDataFim(LocalDate dataFim) {
         this.dataFim = dataFim;
+    }
+
+    // A TESTAR:
+
+    public long daysBetween(Reserva reserva) {
+        long daysBetween = ChronoUnit.DAYS.between(reserva.getDataInicio(), reserva.getDataFim());
+        return daysBetween;
+    }
+
+    @JsonGetter
+    public double totalReserva(Reserva reserva) {
+        double total = 0;
+        total += daysBetween(reserva) * reserva.getVeiculo().getValorDiaria();
+        return total;
     }
 
 }
