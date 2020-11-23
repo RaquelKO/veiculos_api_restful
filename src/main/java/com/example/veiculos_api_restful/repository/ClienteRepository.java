@@ -1,5 +1,6 @@
 package com.example.veiculos_api_restful.repository;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -10,8 +11,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class ClienteRepository {
 
-    private List<Cliente> clientes;
-    private int nextId = 1;
+    private List<Cliente> clientes = new ArrayList<Cliente>();
+    private static int nextId = 1;
 
     public List<Cliente> getAllClientes() {
         return clientes;
