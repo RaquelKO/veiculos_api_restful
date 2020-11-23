@@ -7,8 +7,9 @@ import javax.validation.Valid;
 
 import com.example.veiculos_api_restful.dto.ClienteDTO;
 import com.example.veiculos_api_restful.model.Cliente;
+import com.example.veiculos_api_restful.model.Reserva;
 import com.example.veiculos_api_restful.service.ClienteService;
-import com.example.veiculos_api_restful.service.VeiculoService;
+import com.example.veiculos_api_restful.service.ReservaService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -31,7 +32,7 @@ public class ClienteController {
     public ClienteService clienteService;
 
     @Autowired
-    public VeiculoService veiculoService;
+    public ReservaService reservaService;
 
     // CREATE
 
@@ -79,21 +80,17 @@ public class ClienteController {
 
     // RESERVAS
 
-    // @GetMapping("/{id}/veiculos")
-    // public List<VeiculoDTO> getVeiculosCliente(@PathVariable int id) {
-    // Cliente cliente = clienteService.getClienteById(id);
-    // return reservaService.ge
-    // }
+    @GetMapping("/{id}/reservas")
+    public List<Reserva> getReservasCliente(@PathVariable int id) {
+        return clienteService.getReservasCliente(clienteService.getClienteById(id));
+    }
 
-    // @PostMapping("/{idCliente}/veiculos/{idVeiculo}")
-    // public ResponseEntity<Void> salvar(@PathVariable int id, @RequestBody Pedido
-    // pedido, HttpServletRequest request,
-    // UriComponentsBuilder builder) {
-
-    // pedido = pedidoServico.salvar(id, pedido);
-    // UriComponents uriComponents = builder.path(request.getRequestURI() + "/" +
-    // pedido.getNumero()).build();
-    // return ResponseEntity.created(uriComponents.toUri()).build();
-    // }
+    @PostMapping("/{idCliente}/veiculos/{idVeiculo}")
+    public ResponseEntity<Void> save(@PathVariable int idCliente, @PathVariable int idVeiculo,
+            @RequestBody Reserva reserva, HttpServletRequest request, UriComponentsBuilder builder) {
+        reserva = reservaService.save(idCliente, idVeiculo, reserva);
+        UriComponents uriComponents = builder.path(request.getRequestURI() + "/" + reserva.getIdReserva()).build();
+        return ResponseEntity.created(uriComponents.toUri()).build();
+    }
 
 }

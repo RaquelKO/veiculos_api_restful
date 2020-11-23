@@ -37,4 +37,16 @@ public class Veiculo {
         this.valorDiaria = valorDiaria;
     }
 
+    public ArrayList<Reserva> getReservas() {
+        return reservas;
+    }
+
+    public void setReservas(ArrayList<Reserva> reservas) {
+        this.reservas = reservas;
+    }
+
+    public boolean addReserva(Reserva reserva) {
+        return reservas.add(reserva);
+    }
+
 }

@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import com.example.veiculos_api_restful.dto.VeiculoDTO;
+import com.example.veiculos_api_restful.model.Reserva;
 import com.example.veiculos_api_restful.model.Veiculo;
 import com.example.veiculos_api_restful.repository.VeiculoRepository;
 
@@ -45,5 +46,9 @@ public class VeiculoService {
 
     public void remove(int id) {
         repository.remove(getVeiculoById(id));
+    }
+
+    public List<Reserva> getReservasVeiculo(Veiculo veiculo) {
+        return repository.getReservas(veiculo);
     }
 }

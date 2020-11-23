@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import com.example.veiculos_api_restful.dto.ClienteDTO;
 import com.example.veiculos_api_restful.model.Cliente;
+import com.example.veiculos_api_restful.model.Reserva;
 import com.example.veiculos_api_restful.repository.ClienteRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,5 +47,9 @@ public class ClienteService {
 
     public void remove(int id) {
         repository.remove(getClienteById(id));
+    }
+
+    public List<Reserva> getReservasCliente(Cliente cliente) {
+        return repository.getReservas(cliente);
     }
 }

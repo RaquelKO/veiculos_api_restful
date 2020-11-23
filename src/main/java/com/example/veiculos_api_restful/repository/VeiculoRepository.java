@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import com.example.veiculos_api_restful.model.Reserva;
 import com.example.veiculos_api_restful.model.Veiculo;
 
 import org.springframework.stereotype.Component;
@@ -45,6 +46,9 @@ public class VeiculoRepository {
             aux.setValorDiaria(veiculo.getValorDiaria());
         }
         return aux;
+    }
 
+    public List<Reserva> getReservas(Veiculo veiculo) {
+        return veiculo.getReservas();
     }
 }

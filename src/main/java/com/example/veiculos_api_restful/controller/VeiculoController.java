@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import com.example.veiculos_api_restful.dto.VeiculoDTO;
+import com.example.veiculos_api_restful.model.Reserva;
 import com.example.veiculos_api_restful.model.Veiculo;
 import com.example.veiculos_api_restful.service.VeiculoService;
 
@@ -71,6 +72,13 @@ public class VeiculoController {
     public ResponseEntity<Void> remover(@PathVariable int id) {
         veiculoService.remove(id);
         return ResponseEntity.noContent().build();
+    }
+
+    // RESERVAS
+
+    @GetMapping("/{id}/reservas")
+    public List<Reserva> getReservasVeiculo(@PathVariable int id) {
+        return veiculoService.getReservasVeiculo(veiculoService.getVeiculoById(id));
     }
 
 }

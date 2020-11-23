@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import com.example.veiculos_api_restful.model.Cliente;
+import com.example.veiculos_api_restful.model.Reserva;
 
 import org.springframework.stereotype.Component;
 
@@ -45,6 +46,9 @@ public class ClienteRepository {
             aux.setEndereco(cliente.getEndereco());
         }
         return aux;
+    }
 
+    public List<Reserva> getReservas(Cliente cliente) {
+        return cliente.getReservas();
     }
 }

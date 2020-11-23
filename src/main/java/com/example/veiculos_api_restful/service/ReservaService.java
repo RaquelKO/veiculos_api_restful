@@ -1,5 +1,6 @@
 package com.example.veiculos_api_restful.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import com.example.veiculos_api_restful.model.Cliente;
@@ -36,7 +37,13 @@ public class ReservaService {
 
         reserva.setCliente(cliente);
         reserva.setVeiculo(veiculo);
+        cliente.addReserva(reserva);
+        veiculo.addReserva(reserva);
 
         return repository.save(reserva);
+    }
+
+    public List<Reserva> getAllReservas() {
+        return repository.getAllReservas();
     }
 }
