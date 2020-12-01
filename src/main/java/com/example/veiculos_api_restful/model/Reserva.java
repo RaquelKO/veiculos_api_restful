@@ -1,6 +1,6 @@
 package com.example.veiculos_api_restful.model;
 
-import java.time.DayOfWeek;
+//import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 
