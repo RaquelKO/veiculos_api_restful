@@ -11,6 +11,7 @@ import com.example.veiculos_api_restful.model.Veiculo;
 import com.example.veiculos_api_restful.service.VeiculoService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,6 +21,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
+import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -57,7 +60,7 @@ public class VeiculoController {
     // UPDATE
 
     @PutMapping("/{id}")
-    public ResponseEntity<Veiculo> atualizar(@PathVariable int id, @RequestBody VeiculoDTO veiculoDTO) {
+    public ResponseEntity<Veiculo> update(@PathVariable int id, @RequestBody VeiculoDTO veiculoDTO) {
 
         Veiculo veiculo = veiculoService.fromDTO(veiculoDTO);
         veiculo.setIdVeiculo(id);
@@ -69,10 +72,21 @@ public class VeiculoController {
     // DELETE
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> remover(@PathVariable int id) {
-        veiculoService.remove(id);
-        return ResponseEntity.noContent().build();
+    public ResponseEntityExceptionHandler delete(@PathVariable int id) {
+        if ((veiculoService.getVeiculoById(id).getReservas().isEmpty())) {
+            veiculoService.remove(id);
+            throw new ResponseStatusException(HttpStatus.NO_CONTENT);
+        } else {
+            throw new ResponseStatusException(HttpStatus.METHOD_NOT_ALLOWED, "Não é possível apagar veiculo");
+
+        }
     }
+
+    // @DeleteMapping("/{id}")
+    // public ResponseEntity<Void> remover(@PathVariable int id) {
+    // veiculoService.remove(id);
+    // return ResponseEntity.noContent().build();
+    // }
 
     // RESERVAS
 

@@ -12,6 +12,7 @@ import com.example.veiculos_api_restful.service.ClienteService;
 import com.example.veiculos_api_restful.service.ReservaService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,6 +22,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
+import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -61,7 +64,7 @@ public class ClienteController {
     // UPDATE
 
     @PutMapping("/{id}")
-    public ResponseEntity<Cliente> atualizar(@PathVariable int id, @RequestBody ClienteDTO clienteDTO) {
+    public ResponseEntity<Cliente> update(@PathVariable int id, @RequestBody ClienteDTO clienteDTO) {
 
         Cliente cliente = clienteService.fromDTO(clienteDTO);
         cliente.setIdCliente(id);
@@ -73,9 +76,14 @@ public class ClienteController {
     // DELETE
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> remover(@PathVariable int id) {
-        clienteService.remove(id);
-        return ResponseEntity.noContent().build();
+    public ResponseEntityExceptionHandler delete(@PathVariable int id) {
+        if (clienteService.getClienteById(id).getReservas().isEmpty()) {
+            clienteService.remove(id);
+            throw new ResponseStatusException(HttpStatus.NO_CONTENT);
+        } else {
+            throw new ResponseStatusException(HttpStatus.METHOD_NOT_ALLOWED, "Não é possível apagar veiculo");
+
+        }
     }
 
     // RESERVAS
