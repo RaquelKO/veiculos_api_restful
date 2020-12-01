@@ -81,7 +81,7 @@ public class ClienteController {
             clienteService.remove(id);
             throw new ResponseStatusException(HttpStatus.NO_CONTENT);
         } else {
-            throw new ResponseStatusException(HttpStatus.METHOD_NOT_ALLOWED, "Não é possível apagar veiculo");
+            throw new ResponseStatusException(HttpStatus.METHOD_NOT_ALLOWED, "Não é possível apagar cliente");
 
         }
     }

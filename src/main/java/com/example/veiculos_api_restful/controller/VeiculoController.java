@@ -82,12 +82,6 @@ public class VeiculoController {
         }
     }
 
-    // @DeleteMapping("/{id}")
-    // public ResponseEntity<Void> remover(@PathVariable int id) {
-    // veiculoService.remove(id);
-    // return ResponseEntity.noContent().build();
-    // }
-
     // RESERVAS
 
     @GetMapping("/{id}/reservas")
