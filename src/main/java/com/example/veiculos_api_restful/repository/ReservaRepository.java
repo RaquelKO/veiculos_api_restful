@@ -34,6 +34,7 @@ public class ReservaRepository {
         reserva.setVeiculo(reserva.getVeiculo());
         reserva.setDataInicio(reserva.getDataInicio());
         reserva.setDataFim(reserva.getDataFim());
+        reserva.totalReserva();
         reservas.add(reserva);
         return reserva;
     }

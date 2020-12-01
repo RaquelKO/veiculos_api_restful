@@ -1,5 +1,6 @@
 package com.example.veiculos_api_restful.model;
 
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 
@@ -60,15 +61,32 @@ public class Reserva {
 
     // A TESTAR:
 
-    public long daysBetween(Reserva reserva) {
-        long daysBetween = ChronoUnit.DAYS.between(reserva.getDataInicio(), reserva.getDataFim());
+    // public boolean isSunday() {
+    // if (getDataInicio().getDayOfWeek().equals(DayOfWeek.SUNDAY)
+    // || getDataFim().getDayOfWeek().equals(DayOfWeek.SUNDAY))
+    // return true;
+    // else
+    // return false;
+    // }
+
+    // public boolean areAfter() {
+    // LocalDate dataAtual = LocalDate.now();
+    // if ((getDataInicio().isAfter(dataAtual)) &&
+    // (getDataFim().isAfter(dataInicio)))
+    // return true;
+    // else
+    // return false;
+    // }
+
+    public long daysBetween() {
+        long daysBetween = ChronoUnit.DAYS.between(getDataInicio(), getDataFim());
         return daysBetween;
     }
 
     @JsonGetter
-    public double totalReserva(Reserva reserva) {
+    public double totalReserva() {
         double total = 0;
-        total += daysBetween(reserva) * reserva.getVeiculo().getValorDiaria();
+        total += daysBetween() * getVeiculo().getValorDiaria();
         return total;
     }
 
