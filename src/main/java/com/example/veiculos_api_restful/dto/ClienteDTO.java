@@ -1,6 +1,8 @@
 package com.example.veiculos_api_restful.dto;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Positive;
+
 import org.hibernate.validator.constraints.Length;
 
 public class ClienteDTO {
@@ -13,6 +15,7 @@ public class ClienteDTO {
     @Length(min = 4, max = 200, message = "Endereço deve ter mínimo de 4 e o máximo de 200 caracteres!")
     private String endereco;
 
+    @Positive(message = "O CPF é obrigatório!")
     private long cpf;
 
     public String getNome() {
