@@ -7,7 +7,7 @@ import org.hibernate.validator.constraints.Length;
 public class VeiculoDTO {
 
     @NotBlank(message = "Modelo é obrigatorio!")
-    @Length(min = 2, max = 20, message = "Digite um modelo válido (2 a 20 caracteres!")
+    @Length(min = 2, max = 20, message = "Digite um modelo válido (2 a 20 caracteres)!")
     private String modelo;
 
     // @NotBlank(message = "O valor/diária é obrigatorio!")
