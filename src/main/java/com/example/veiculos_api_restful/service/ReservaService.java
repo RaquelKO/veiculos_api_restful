@@ -32,15 +32,20 @@ public class ReservaService {
 
     public Reserva save(int idCliente, int idVeiculo, Reserva reserva) {
 
-        Cliente cliente = clienteService.getClienteById(idCliente);
-        Veiculo veiculo = veiculoService.getVeiculoById(idVeiculo);
+        if (reserva.isNotSunday() && reserva.dataValida()) {
+            Cliente cliente = clienteService.getClienteById(idCliente);
+            Veiculo veiculo = veiculoService.getVeiculoById(idVeiculo);
 
-        reserva.setCliente(cliente);
-        reserva.setVeiculo(veiculo);
-        cliente.addReserva(reserva);
-        veiculo.addReserva(reserva);
+            reserva.setCliente(cliente);
+            reserva.setVeiculo(veiculo);
+            cliente.addReserva(reserva);
+            veiculo.addReserva(reserva);
 
-        return repository.save(reserva);
+            return repository.save(reserva);
+        } else {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Data inválida!");
+        }
+
     }
 
     public List<Reserva> getAllReservas() {

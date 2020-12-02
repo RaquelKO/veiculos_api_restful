@@ -1,11 +1,12 @@
 package com.example.veiculos_api_restful.model;
 
-//import java.time.DayOfWeek;
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public class Reserva {
 
@@ -59,25 +60,6 @@ public class Reserva {
         this.dataFim = dataFim;
     }
 
-    // A TESTAR:
-
-    // public boolean isSunday() {
-    // if (getDataInicio().getDayOfWeek().equals(DayOfWeek.SUNDAY)
-    // || getDataFim().getDayOfWeek().equals(DayOfWeek.SUNDAY))
-    // return true;
-    // else
-    // return false;
-    // }
-
-    // public boolean areAfter() {
-    // LocalDate dataAtual = LocalDate.now();
-    // if ((getDataInicio().isAfter(dataAtual)) &&
-    // (getDataFim().isAfter(dataInicio)))
-    // return true;
-    // else
-    // return false;
-    // }
-
     public long daysBetween() {
         long daysBetween = ChronoUnit.DAYS.between(getDataInicio(), getDataFim());
         return daysBetween;
@@ -88,6 +70,19 @@ public class Reserva {
         double total = 0;
         total += daysBetween() * getVeiculo().getValorDiaria();
         return total;
+    }
+
+    @JsonIgnore
+    public boolean isNotSunday() {
+        DayOfWeek initialDay = getDataInicio().getDayOfWeek();
+        DayOfWeek finalDay = getDataFim().getDayOfWeek();
+
+        return !(initialDay == DayOfWeek.SUNDAY || finalDay == DayOfWeek.SUNDAY);
+    }
+
+    @JsonIgnore
+    public boolean dataValida() {
+        return (getDataInicio().isAfter(LocalDate.now()) && getDataFim().isAfter(getDataInicio()));
     }
 
 }
