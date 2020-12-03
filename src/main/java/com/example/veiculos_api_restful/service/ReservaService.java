@@ -32,7 +32,7 @@ public class ReservaService {
 
     public Reserva save(int idCliente, int idVeiculo, Reserva reserva) {
 
-        if (reserva.isNotSunday() && reserva.dataValida()) {
+        if (reserva.isNotSunday() && reserva.hasValidDate()) {
             Cliente cliente = clienteService.getClienteById(idCliente);
             Veiculo veiculo = veiculoService.getVeiculoById(idVeiculo);
 
@@ -45,7 +45,6 @@ public class ReservaService {
         } else {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Data inválida!");
         }
-
     }
 
     public List<Reserva> getAllReservas() {

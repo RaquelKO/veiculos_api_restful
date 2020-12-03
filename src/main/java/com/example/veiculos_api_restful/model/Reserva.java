@@ -81,7 +81,7 @@ public class Reserva {
     }
 
     @JsonIgnore
-    public boolean dataValida() {
+    public boolean hasValidDate() {
         return (getDataInicio().isAfter(LocalDate.now()) && getDataFim().isAfter(getDataInicio()));
     }
 
