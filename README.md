@@ -23,7 +23,7 @@ Projeto da disciplina de Programação Orientada a Objetos da FACENS
 - Data de Início (Deverá ser maior que a data do sistema). Não pode começar no Domingo<br>
 - Data de Fim (Deverá ser maior que a data de Início). Não existe entrega no Domingo<br>
 - O total da reserva deverá ser calculado<br>
-- Um veículo pode ser reservado várias vezes, porém somente em períodos/datas diferentes
+- Um veículo pode ser reservado várias vezes, porém somente em períodos/datas diferentes 🚧 (em andamento) 
 <br></br>
 4. Listar uma reserva pelo número
 5. Listar as reservas de um cliente
